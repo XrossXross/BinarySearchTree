@@ -50,9 +50,14 @@ public class BinarySearchTree<T extends ComperableContent<T>> {
     }
 
     public void remove(T pContent) {
-        int c;
-        char direction;
         BinarySearchTree<T> parent = null;
+        remove(pContent, parent);
+    }
+
+    private void remove(T pContent, BinarySearchTree<T> parent) {
+        int c;
+        char direction = ' ';
+        BinarySearchTree<T> last;
         if (!isEmpty() && pContent != null) {
             if (pContent.isEqual(content)) {
                 if (getLeftTree().isEmpty() && getRightTree().isEmpty()) {
@@ -68,19 +73,33 @@ public class BinarySearchTree<T extends ComperableContent<T>> {
                 }
                 switch (c) {
                     case 1:
+                        content = null;
                     case 2:
+                        if (direction == 'l') {
+                            parent.setLeftTree(this);
+                        }
+                        if (direction == 'r') {
+                            parent.setRightTree(this);
+                        }
                     case 3:
+                        last = getLeftTree();
+                        while (last.getRightTree() != null) {
+                            last = last.getRightTree();
+                        }
+                        parent.setLeftTree(last);
+                        last.setLeftTree(leftTree);
+                        last.setRightTree(rightTree);
+                        remove(last.getContent());
                 }
             }
         } else if (pContent.isLess(content)) {
             parent = this;
-            leftTree.remove(pContent);
+            leftTree.remove(pContent, parent);
         } else if (pContent.isGreater(pContent)) {
             parent = this;
-            rightTree.remove(pContent);
+            rightTree.remove(pContent, parent);
         }
     }
-
 
     public T getContent() {
         return content;
@@ -92,6 +111,14 @@ public class BinarySearchTree<T extends ComperableContent<T>> {
 
     public BinarySearchTree<T> getRightTree() {
         return rightTree;
+    }
+
+    public void setLeftTree(BinarySearchTree<T> leftTree) {
+        this.leftTree = leftTree;
+    }
+
+    public void setRightTree(BinarySearchTree<T> rightTree) {
+        this.rightTree = rightTree;
     }
 
 }
