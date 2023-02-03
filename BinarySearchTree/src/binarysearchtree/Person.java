@@ -17,22 +17,28 @@ public class Person implements ComperableContent<Person> {
     }
 
     public boolean isGreater(Person pContent) {
-        if (name.compareTo(pContent.name) < 0) {
-            return true;
+        if (pContent != null) {
+            if (name.compareTo(pContent.name) < 0) {
+                return true;
+            }
         }
         return false;
     }
 
     public boolean isLess(Person pContent) {
-        if (name.compareTo(pContent.name) > 0) {
-            return true;
+        if (pContent != null) {
+            if (name.compareTo(pContent.name) > 0) {
+                return true;
+            }
         }
         return false;
     }
 
     public boolean isEqual(Person pContent) {
-        if (name.compareTo(pContent.name) == 0) {
-            return true;
+        if (pContent != null) {
+            if (name.compareTo(pContent.name) == 0) {
+                return true;
+            }
         }
         return false;
     }

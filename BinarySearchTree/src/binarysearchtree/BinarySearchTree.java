@@ -28,7 +28,7 @@ public class BinarySearchTree<T extends ComperableContent<T>> {
                     return;
                 } else if (pContent.isLess(content)) {
                     leftTree.insert(pContent);
-                } else if (pContent.isGreater(pContent)) {
+                } else if (pContent.isGreater(content)) {
                     rightTree.insert(pContent);
                 }
             }
