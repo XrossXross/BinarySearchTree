@@ -17,22 +17,41 @@ public class BinarySearchTree<T extends ComperableContent<T>> {
     public BinarySearchTree() {
     }
 
+    public BinarySearchTree(T pContent) {
+        content = pContent;
+    }
+
     public boolean isEmpty() {
-        return content != null;
+        return content == null;
     }
 
     public void insert(T pContent) {
+        if (isEmpty()) {
+            content = pContent;
+            return;
+        }
         if (pContent != null) {
             if (!isEmpty()) {
+                System.out.println(pContent);
                 if (pContent.isEqual(content)) {
                     return;
                 } else if (pContent.isLess(content)) {
-                    leftTree.insert(pContent);
+                    if (!leftTree.isEmpty()) {
+                        leftTree.insert(pContent);
+                    } else {
+                        leftTree = new BinarySearchTree<T>(pContent);
+                        System.out.println(pContent);
+                    }
+
                 } else if (pContent.isGreater(content)) {
-                    rightTree.insert(pContent);
+                    if (!rightTree.isEmpty()) {
+                        rightTree.insert(pContent);
+                    } else {
+                        rightTree = new BinarySearchTree<T>(pContent);
+                        System.out.println(pContent);
+                    }
                 }
             }
-            content = pContent;
         }
     }
 

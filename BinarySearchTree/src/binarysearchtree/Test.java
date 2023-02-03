@@ -30,11 +30,14 @@ public class Test {
     }
 
     public static void inorder(BinarySearchTree<Person> BST) {
-        if (!BST.isEmpty()) {
+        if (BST.getLeftTree()!=null) {
             inorder(BST.getLeftTree());
         }
-        System.out.println(BST.getContent().getName());
-        if (!BST.isEmpty()) {
+        if (BST!=null&&!BST.isEmpty()) {
+System.out.println(BST.getContent());
+            System.out.println(BST.getContent().getName());
+        }
+        if (BST.getRightTree()!=null) {
             inorder(BST.getRightTree());
         }
     }
