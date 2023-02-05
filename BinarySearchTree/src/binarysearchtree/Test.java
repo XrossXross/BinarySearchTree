@@ -27,6 +27,18 @@ public class Test {
             Baum.insert(p);
         }
         inorder(Baum);
+        System.out.println();
+        System.out.println(Baum.search(Kevin).getName());
+        System.out.println();
+        Baum.remove(Geralt);
+        inorder(Baum);
+        //System.out.println();
+        //Baum.remove(Gertrude);
+        //inorder(Baum);
+        //System.out.println();
+        //Baum.remove(Lily);
+        //inorder(Baum);
+        //System.out.println();
     }
 
     public static void inorder(BinarySearchTree<Person> BST) {
@@ -34,7 +46,6 @@ public class Test {
             inorder(BST.getLeftTree());
         }
         if (BST!=null&&!BST.isEmpty()) {
-System.out.println(BST.getContent());
             System.out.println(BST.getContent().getName());
         }
         if (BST.getRightTree()!=null) {
