@@ -18,7 +18,7 @@ public class Person implements ComperableContent<Person> {
 
     public boolean isGreater(Person pContent) {
         if (pContent != null) {
-            if (name.compareTo(pContent.name) < 0) {
+            if (name.compareTo(pContent.name) > 0) {
                 return true;
             }
         }
@@ -27,7 +27,7 @@ public class Person implements ComperableContent<Person> {
 
     public boolean isLess(Person pContent) {
         if (pContent != null) {
-            if (name.compareTo(pContent.name) > 0) {
+            if (name.compareTo(pContent.name) < 0) {
                 return true;
             }
         }

@@ -55,9 +55,9 @@ public class BinarySearchTree<T extends ComperableContent<T>> {
         if (!isEmpty() && pContent != null) {
             if (pContent.isEqual(content)) {
                 return content;
-            } else if (pContent.isLess(content)) {
+            } else if (leftTree!=null&&pContent.isLess(content)) {
                 return leftTree.search(pContent);
-            } else if (pContent.isGreater(pContent)) {
+            } else if (rightTree!=null&&pContent.isGreater(pContent)) {
                 return rightTree.search(pContent);
             }
         }
@@ -74,13 +74,13 @@ public class BinarySearchTree<T extends ComperableContent<T>> {
         BinarySearchTree<T> last;
         if (!isEmpty() && pContent != null) {
             if (pContent.isEqual(content)) {
-                if (getLeftTree().isEmpty() && getRightTree().isEmpty()) {
+                if (getLeftTree()==null&&getRightTree()==null) {
                      if(direction=='l')parent.setLeftTree(null);
                      if(direction=='r')parent.setRightTree(null);
-                } else if (getLeftTree().isEmpty()) {
+                } else if (getLeftTree()==null) {
                     if(direction=='l')parent.setLeftTree(rightTree);
                     if(direction=='r')parent.setRightTree(rightTree);
-                } else if (getRightTree().isEmpty()) {
+                } else if (getRightTree()==null) {
                     if(direction=='l')parent.setLeftTree(leftTree);
                     if(direction=='r')parent.setRightTree(leftTree);
                 } else {
