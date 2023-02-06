@@ -30,15 +30,12 @@ public class Test {
         System.out.println();
         System.out.println(Baum.search(Kevin).getName());
         System.out.println();
-<<<<<<< HEAD
         inOrderAusgeben(Baum,0);
         System.out.println();
-        Baum.remove(Günther);
-=======
+        Baum.remove(Guenther);
         inOrderAusgeben(Baum, 0);
         System.out.println();
         Baum.remove(Gertrude);
->>>>>>> a95b43b5433c3317972b9df8fe90fb6c2af7ed8d
         inOrderAusgeben(Baum, 0);
         //inorder(Baum);
         //System.out.println();
@@ -69,18 +66,4 @@ public class Test {
         System.out.println(teilbaum.getContent().getName());
         if(teilbaum.getRightTree()!=null)inOrderAusgeben(teilbaum.getRightTree(), indent + 1);
     }
-
-    private static void inOrderAusgeben(BinarySearchTree<Person> teilbaum, int indent) {
-        if (teilbaum.getLeftTree() != null) {
-            inOrderAusgeben(teilbaum.getLeftTree(), indent + 1);
-        }
-        for (int i = 0; i < indent; i++) {
-            System.out.print("  ");
-        }
-        System.out.println(teilbaum.getContent().getName());
-        if (teilbaum.getRightTree() != null) {
-            inOrderAusgeben(teilbaum.getRightTree(), indent + 1);
-        }
-    }
-
 }
