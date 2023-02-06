@@ -15,6 +15,7 @@ public class BinarySearchTree<T extends ComperableContent<T>> {
     private T content;
 
     public BinarySearchTree() {
+        content = null;
     }
 
     public BinarySearchTree(T pContent) {
@@ -35,13 +36,13 @@ public class BinarySearchTree<T extends ComperableContent<T>> {
                 if (pContent.isEqual(content)) {
                     return;
                 } else if (pContent.isLess(content)) {
-                    if (leftTree!=null&&!leftTree.isEmpty()) {
+                    if (leftTree != null && !leftTree.isEmpty()) {
                         leftTree.insert(pContent);
                     } else {
                         leftTree = new BinarySearchTree<T>(pContent);
                     }
                 } else if (pContent.isGreater(content)) {
-                    if (rightTree!=null&&!rightTree.isEmpty()) {
+                    if (rightTree != null && !rightTree.isEmpty()) {
                         rightTree.insert(pContent);
                     } else {
                         rightTree = new BinarySearchTree<T>(pContent);
@@ -64,40 +65,51 @@ public class BinarySearchTree<T extends ComperableContent<T>> {
         return null;
     }
 
-    public void remove(T pContent) {
-        BinarySearchTree<T> parent = new BinarySearchTree<T>();
+    /*
+public void remove(T pContent) {
+        BinarySearchTree<T> parent=null;
         char direction='n';
         remove(pContent, parent, direction);
     }
 
     private void remove(T pContent, BinarySearchTree<T> parent, char direction) {
-        BinarySearchTree<T> last;
+        BinarySearchTree<T> last=null;
         if (!isEmpty() && pContent != null) {
             if (pContent.isEqual(content)) {
-                if (getLeftTree().isEmpty() && getRightTree().isEmpty()) {
+                if (getLeftTree()==null && getRightTree()==null) {
                      if(direction=='l')parent.setLeftTree(null);
                      if(direction=='r')parent.setRightTree(null);
-                } else if (getLeftTree().isEmpty()) {
+                     if(direction=='n')content=null;
+                } else if (getLeftTree()==null) {
                     if(direction=='l')parent.setLeftTree(rightTree);
                     if(direction=='r')parent.setRightTree(rightTree);
-                } else if (getRightTree().isEmpty()) {
+                    if(direction=='n'){
+                        content=rightTree.getContent();
+                        if(rightTree.getRightTree()!=null)rightTree=leftTree.getRightTree();
+                        if(rightTree.getLeftTree()!=null)leftTree=leftTree.getLeftTree();
+                    }
+                } else if (getRightTree()==null) {
                     if(direction=='l')parent.setLeftTree(leftTree);
                     if(direction=='r')parent.setRightTree(leftTree);
+                    if(direction=='n'){
+                        content=leftTree.getContent();
+                        if(rightTree.getLeftTree()!=null)leftTree=rightTree.getLeftTree();
+                        if(rightTree.getRightTree()!=null)rightTree=rightTree.getRightTree();
+                    }
                 } else {
-                    BinarySearchTree<T> parentOfLast=this;
-                    char directionOfLast='l';
                     last = getLeftTree();
-                    if(last.getRightTree()!=null)directionOfLast='r';
-                        while (last.getRightTree() != null) {
-                            parentOfLast=last;
-                            last = last.getRightTree();
-                        }
+                    while (last.getRightTree() != null) {
+                        last = last.getRightTree();
+                    }
+                    if(direction!='n'){
                         if(direction=='l')parent.setLeftTree(last);
                         if(direction=='r')parent.setRightTree(last);
                         last.setLeftTree(leftTree);
                         last.setRightTree(rightTree);
-                        if(directionOfLast=='l')parentOfLast.setLeftTree(null);
-                        if(directionOfLast=='r')parentOfLast.setRightTree(null);
+                    }else{
+                       content=last.getContent();
+                    }
+                    leftTree.remove(last.getContent());
                 }
             }
             else if (pContent.isLess(content)) {
@@ -109,6 +121,67 @@ public class BinarySearchTree<T extends ComperableContent<T>> {
                 direction = 'r';
                 rightTree.remove(pContent, parent, direction);
             }
+        }
+    }
+     */
+public void remove(T pContent){
+remove(pContent,null,'n');
+}
+    private void remove(T pContent, BinarySearchTree<T> parent, char direction) {
+        if (isEmpty() || pContent == null) {
+            return;
+        }
+        if (content == pContent) {
+            if (leftTree == null) {
+                if (rightTree == null) {
+                    if (direction == 'l') {
+                        parent.setLeftTree(null);
+                    }
+                    if (direction == 'r') {
+                        parent.setRightTree(null);
+                    }
+                } else {
+                    if (direction == 'l') {
+                        parent.setLeftTree(rightTree);
+                    }
+                    if (direction == 'r') {
+                        parent.setRightTree(rightTree);
+                    }
+                }
+            } else if (rightTree == null) {
+                if (direction == 'l') {
+                    parent.setLeftTree(leftTree);
+                }
+                if (direction == 'r') {
+                    parent.setRightTree(leftTree);
+                }
+            } else {
+                BinarySearchTree<T> parentOfLast = this;
+                BinarySearchTree<T> last = leftTree;
+                while (last.getRightTree() != null) {
+                    parentOfLast = last;
+                    last = last.getRightTree();
+                }
+                if (direction == 'l') {
+                    parent.setLeftTree(last);
+                }
+                if (direction == 'r') {
+                    parent.setRightTree(last);
+                }
+                if (last.getLeftTree() != null) {
+                    parentOfLast.setRightTree(last.getLeftTree());
+                }
+                last.setLeftTree(leftTree);
+                last.setRightTree(rightTree);
+            }
+        } else if (leftTree!=null&&content.isLess(pContent)) {
+            parent = this;
+            direction = 'l';
+            leftTree.remove(pContent, parent, direction);
+        } else if (rightTree!=null&&content.isGreater(pContent)) {
+            parent = this;
+            direction = 'r';
+            rightTree.remove(pContent, parent, direction);
         }
     }
 
